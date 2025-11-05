@@ -1,73 +1,65 @@
-# Welcome to your Lovable project
+Welcome to Anupama Institute Portal
+🌟 Project Overview
 
-## Project info
+This is the official digital learning & management platform for Anupama Institute, designed and developed by Team a4ai — empowering education with intelligent technology and modern UX.
 
-**URL**: https://lovable.dev/projects/fb0cf972-9ca8-499e-a1a2-39c59194a110
+🚀 Powered by a4ai (AI for All India) — Smart solutions for schools & institutes.
 
-## How can I edit this code?
+🔗 Project URL
 
-There are several ways of editing your application.
+Live Project: https://lovable.dev/projects/fb0cf972-9ca8-499e-a1a2-39c59194a110
 
-**Use Lovable**
+(Will soon be hosted on institute domain)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/fb0cf972-9ca8-499e-a1a2-39c59194a110) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
+🛠 Tech Stack
 
 This project is built with:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+⚡️ Vite
 
-## How can I deploy this project?
+🧠 TypeScript
 
-Simply open [Lovable](https://lovable.dev/projects/fb0cf972-9ca8-499e-a1a2-39c59194a110) and click on Share -> Publish.
+⚛️ React
 
-## Can I connect a custom domain to my Lovable project?
+🎨 Tailwind CSS
 
-Yes, you can!
+🧱 shadcn-ui
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+💡 Modern responsive UI + performance-optimized design
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+🧑‍💻 Editing & Development
+✅ Using Lovable
+
+Open the project here & continue prompting:
+
+🔗 https://lovable.dev/projects/fb0cf972-9ca8-499e-a1a2-39c59194a110
+
+✅ Local Development
+git clone <YOUR_GIT_URL>
+cd <PROJECT_FOLDER>
+
+npm install
+npm run dev
+
+
+The app runs locally with hot-reload support.
+
+🚀 Deployment
+
+Easily deploy from Lovable:
+Share → Publish
+
+You can also add your custom domain in:
+Project → Settings → Domains
+
+❤️ Credit
+
+This platform is proudly designed & built by:
+
+Team a4ai
+
+Re-imagining school technology for India.
+
+📞 For Support
+
+For updates, support & integrations, contact Team a4ai.
