@@ -100,7 +100,7 @@ I would like to know more about the admission process and course details.`;
     {
       icon: MapPin,
       title: "Campus Location",
-      description: "Rzh 8, Street No. 2, Raj Nagar II Extension, Palam, New Delhi, Delhi 110077",
+      description: "DDA SFS LIG FLATS, ARUNODAYA APARTMENTS,Dwarka Sector-7, New Delhi, Delhi 110077",
       color: "from-purple-500 to-pink-500",
       bg: "bg-gradient-to-br from-purple-50 to-pink-50"
     },
@@ -114,7 +114,7 @@ I would like to know more about the admission process and course details.`;
     {
       icon: Mail,
       title: "Email Address",
-      description: "info@chanakyainstitute.edu.in",
+      description: "info@anupamainstitue.edu.in",
       color: "from-blue-500 to-cyan-500",
       bg: "bg-gradient-to-br from-blue-50 to-cyan-50"
     },

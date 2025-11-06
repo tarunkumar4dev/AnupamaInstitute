@@ -110,7 +110,7 @@ export default function BlogPost() {
             <div className="mt-12 pt-8 border-t border-blue-100">
               <div className="flex flex-wrap gap-4 justify-between items-center">
                 <div className="text-sm text-gray-600">
-                  Published by Chanakya Institute of Education
+                  Published by Anupama Institute of Education
                 </div>
                 <Link 
                   to="/blog" 
@@ -129,7 +129,7 @@ export default function BlogPost() {
           <div className="bg-gradient-to-r from-[#00509d] to-[#003888] rounded-2xl p-8 text-white">
             <h3 className="text-2xl font-bold mb-4">Ready to Excel Academically?</h3>
             <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-              Join Chanakya Institute and experience our proven teaching methodology that has helped hundreds of students achieve academic success.
+              Join Anupama Institute and experience our proven teaching methodology that has helped hundreds of students achieve academic success.
             </p>
             <Link 
               to="/contact" 

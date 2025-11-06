@@ -49,9 +49,9 @@ const About = () => {
   ];
 
   const stats = [
-    { value: "700+", label: "Students Transformed", icon: Users, color: "from-blue-500 to-cyan-500" },
-    { value: "97%", label: "Board Success Rate", icon: Star, color: "from-green-500 to-emerald-500" },
-    { value: "4+", label: "Years of Excellence", icon: Award, color: "from-purple-500 to-pink-500" },
+    { value: "90+", label: "Students Transformed", icon: Users, color: "from-blue-500 to-cyan-500" },
+    { value: "95%", label: "Board Success Rate", icon: Star, color: "from-green-500 to-emerald-500" },
+    { value: "2+", label: "Years of Excellence", icon: Award, color: "from-purple-500 to-pink-500" },
     { value: "100%", label: "Satisfaction Guarantee", icon: Shield, color: "from-orange-500 to-red-500" }
   ];
 
@@ -100,7 +100,7 @@ const About = () => {
           <h1 className="text-4xl sm:text-6xl font-bold text-gray-900 mb-6 leading-tight">
             Transforming Education in{' '}
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Palam
+              Dwarka Sector-7
             </span>
           </h1>
           
@@ -134,7 +134,7 @@ const About = () => {
               <div className="space-y-6 text-gray-700 leading-relaxed">
                 <p className="text-lg">
                   Since our founding in 2021, <strong className="text-gray-900">Anupama Institute</strong> has 
-                  redefined educational excellence in Palam, New Delhi, creating a nurturing environment 
+                  redefined educational excellence in Arunodaya Apartment,Dwarka Sector-7, New Delhi, creating a nurturing environment 
                   where students from Classes 9-12 thrive academically and personally.
                 </p>
                 
@@ -254,7 +254,7 @@ const About = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-gray-900 text-lg">Visit Our Campus</h4>
-                  <p className="text-gray-600 text-sm">Palam, New Delhi</p>
+                  <p className="text-gray-600 text-sm">Arunodaya Apartment,Dwarka Sector-7, New Delhi</p>
                 </div>
               </div>
               <p className="text-gray-600 mb-4 text-sm leading-relaxed">

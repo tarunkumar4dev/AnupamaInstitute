@@ -8,7 +8,7 @@ export type Toppers = {
   };
   
   export const TOPPERS: Toppers[] = [
-    { name: "Anuj Rathore", cls: "Class 10", score: "97%",subject: "in Maths", year: 2025 },
+    { name: "Prajjwal", cls: "Class 9", score: "90%",subject: "in Maths", year: 2024 },
     { name: "Nanki", cls: "Class 9", score: "95%", subject: "Science", year: 2025 },
     { name: "Vyom", cls: "Class 9", score: "94%", subject: "Maths", year: 2025 },
   ];

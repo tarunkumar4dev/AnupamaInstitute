@@ -14,17 +14,17 @@ export default function BlogList() {
             Educational Insights
           </div>
           <h1 className="text-4xl font-extrabold text-blue-900 mb-4">
-            Chanakya Institute Blog
+            Anupama Institute Blog
           </h1>
           <p className="text-lg text-blue-700 max-w-2xl mx-auto">
-            Expert advice, study strategies, academic updates, and success stories from Chanakya Institute of Education.
+            Expert advice, study strategies, academic updates, and success stories from Anupama Institute of Education.
           </p>
         </div>
 
         {/* Featured Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
           {[
-            { icon: Users, label: "Active Readers", value: "2K+" },
+            { icon: Users, label: "Active Readers", value: "200+" },
             { icon: BookOpen, label: "Articles", value: "50+" },
             { icon: Award, label: "Expert Authors", value: "15+" },
             { icon: Calendar, label: "Weekly Updates", value: "New" },
@@ -105,7 +105,7 @@ export default function BlogList() {
         {/* Newsletter CTA */}
         <div className="mt-16 text-center">
           <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-8 text-white">
-            <h3 className="text-2xl font-bold mb-2">Stay Updated with Chanakya Institute</h3>
+            <h3 className="text-2xl font-bold mb-2">Stay Updated with Anupama Institute</h3>
             <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
               Get the latest educational insights, study tips, and institute updates directly in your inbox.
             </p>

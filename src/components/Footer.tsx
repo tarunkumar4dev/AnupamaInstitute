@@ -39,10 +39,10 @@ const Footer = () => {
   ];
 
   const contactInfo = [
-    { icon: MapPin, text: "Old Mehrauli Road, Near Raj Dairy, Raj Nagar Part-2, Palam, New Delhi - 110077", color: "from-purple-500 to-pink-500" },
+    { icon: MapPin, text: "DDA SFS LIG FLATS, ARUNODAYA APARTMENTS,Dwarka Sector-7, New Delhi, Delhi 110077", color: "from-purple-500 to-pink-500" },
     { icon: Phone, text: "+91-7982404990", color: "from-green-500 to-emerald-500" },
     { icon: MessageCircle, text: "WhatsApp Available", color: "from-blue-500 to-cyan-500" },
-    { icon: Mail, text: "info@chanakyainstitute.edu.in", color: "from-orange-500 to-red-500" }
+    { icon: Mail, text: "info@anupamainstitute.edu.in", color: "from-orange-500 to-red-500" }
   ];
 
   return (
@@ -74,7 +74,7 @@ const Footer = () => {
                 </h3>
                 <p className="text-emerald-400 text-sm font-semibold mt-1 flex items-center gap-2">
                   <Sparkles className="w-4 h-4" />
-                  Premier Education Since 2018
+                  Premier Education Since 2023
                 </p>
                 <p className="text-slate-300 text-sm leading-relaxed mt-3 max-w-md">
                   Transforming academic journeys through personalized coaching for Classes 9–12. 
@@ -166,7 +166,7 @@ const Footer = () => {
 
             {/* Accreditation Badges */}
             <div className="flex flex-wrap gap-3 pt-4">
-              {["CBSE Curriculum", "ISO Certified", "Recognized Institute"].map((badge, index) => (
+              {["CBSE Curriculum"].map((badge, index) => (
                 <div key={index} className="px-3 py-1 bg-white/5 rounded-full border border-white/10 hover:border-emerald-500/30 transition-all duration-300 group">
                   <span className="text-xs text-slate-300 group-hover:text-white">{badge}</span>
                 </div>
@@ -187,7 +187,7 @@ const Footer = () => {
                 All rights reserved.
               </p>
               <p className="text-slate-500 text-xs mt-1">
-                Empowering students for academic excellence since 2018
+                Empowering students for academic excellence since 2023
               </p>
             </div>
 
@@ -209,8 +209,8 @@ const Footer = () => {
           {/* Final Accreditation */}
           <div className="text-center mt-6 pt-6 border-t border-white/5">
             <p className="text-xs text-slate-500">
-              Affiliated with CBSE Curriculum | Recognized Coaching Institute | ISO Certified Standards | 
-              <span className="text-emerald-400 ml-1">Transforming Education Since 2018</span>
+               CBSE Curriculum
+              <span className="text-emerald-400 ml-1">Transforming Education Since 2023</span>
             </p>
           </div>
         </div>

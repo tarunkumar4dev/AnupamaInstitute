@@ -12,6 +12,7 @@ import BlogList from "@/pages/BlogList";
 import BlogPost from "@/pages/BlogPost";
 import ResultsPage from "@/pages/ResultsPage";
 import NotFound from "@/pages/NotFound";
+import Chatbot from "@/components/Chatbot";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,8 @@ const App = () => (
           <Route path="/blog" element={<BlogList />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/results" element={<ResultsPage />} />
+
+          <Route path="/chatbot" element={<Chatbot />} />
 
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
