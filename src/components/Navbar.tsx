@@ -1,449 +1,343 @@
-import { useEffect, useMemo, useRef, useState, useCallback } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import {
-  Search,
-  ChevronDown,
-  Menu,
-  X,
-  Phone,
-  Star,
-  MessageCircle,
-  BookOpen,
-  GraduationCap,
-  Clock,
-  Zap,
-  UserCheck,
-} from "lucide-react";
+import { Search, ChevronDown, Menu, X, Phone, Star, GraduationCap, BookOpen, Lightbulb, Target, Zap } from "lucide-react";
 import { COURSES } from "@/config/courses";
 
-/**
- * Responsive, smooth, and accessible Navbar
- * - requestAnimationFrame scroll handling (no jank)
- * - Reduced motion support
- * - Keyboard-accessible dropdown
- * - Click‑outside & route‑change closing
- * - Smaller re-render surface using refs and useCallback
- */
-
-const PHONE_NUMBER = "+918368140028"; // single source
-
-const NAV_LINKS = [
-  { to: "/", label: "Home" },
-  { to: "/results", label: "Results", badge: "97%" },
-  { to: "/blog", label: "Resources" },
-  { to: "/contact", label: "Contact" },
-];
-
 export default function Navbar() {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [mobileMenu, setMobileMenu] = useState(false);
   const [q, setQ] = useState("");
   const [scrolled, setScrolled] = useState(false);
-  const [visible, setVisible] = useState(true);
-  const [searchFocused, setSearchFocused] = useState(false);
-
-  const lastScrollYRef = useRef(0);
-  const tickingRef = useRef(false);
-  const prefersReducedMotion = useRef<boolean>(false);
-
   const nav = useNavigate();
   const location = useLocation();
-  const dropdownWrapRef = useRef<HTMLDivElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
 
+  /* ---------- Scroll effect ---------- */
   useEffect(() => {
-    prefersReducedMotion.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  }, []);
-
-  /** Scroll: hide on scroll down, show on up, add subtle bg after 50px */
-  useEffect(() => {
-    const onScroll = () => {
-      if (tickingRef.current) return;
-      tickingRef.current = true;
-      requestAnimationFrame(() => {
-        const y = window.scrollY;
-        setScrolled(y > 50);
-        const last = lastScrollYRef.current;
-        if (y > last && y > 100) setVisible(false);
-        else setVisible(true);
-        lastScrollYRef.current = y;
-        tickingRef.current = false;
-      });
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
     };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  /** Close menus on route change */
+  /* ---------- Close dropdown on route change ---------- */
   useEffect(() => {
-    setDropdownOpen(false);
-    setMobileOpen(false);
+    setOpen(false);
+    setMobileMenu(false);
   }, [location.pathname]);
 
-  /** Close dropdown on outside click */
-  useEffect(() => {
-    const onDocClick = (e: MouseEvent) => {
-      const el = dropdownWrapRef.current;
-      if (!el) return;
-      if (!el.contains(e.target as Node)) setDropdownOpen(false);
-    };
-    document.addEventListener("mousedown", onDocClick);
-    return () => document.removeEventListener("mousedown", onDocClick);
-  }, []);
-
-  const submitSearch = useCallback(() => {
+  /* ---------- Search submit ---------- */
+  const submitSearch = () => {
     const query = q.trim();
     nav(`/courses${query ? `?q=${encodeURIComponent(query)}` : ""}`);
-  }, [q, nav]);
+  };
 
-  const onKey = useCallback(
-    (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === "Enter") submitSearch();
-      if (e.key === "Escape") (e.target as HTMLInputElement).blur();
-    },
-    [submitSearch]
-  );
+  const onKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") submitSearch();
+  };
 
-  const class11 = useMemo(() => COURSES.filter((c) => c.cls === 11).slice(0, 3), []);
-  const class12 = useMemo(() => COURSES.filter((c) => c.cls === 12).slice(0, 3), []);
+  const class11 = useMemo(() => COURSES.filter((c) => c.cls === 11), []);
+  const class12 = useMemo(() => COURSES.filter((c) => c.cls === 12), []);
 
-  const handlePhoneClick = useCallback(() => {
-    window.open(`tel:${PHONE_NUMBER}`, "_self");
+  /* ---------- Close on click outside ---------- */
+  useEffect(() => {
+    const h = (e: MouseEvent) => {
+      if (!wrapRef.current) return;
+      if (!wrapRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", h);
+    return () => document.removeEventListener("mousedown", h);
   }, []);
 
-  const handleEnquireClick = useCallback(
-    (e?: React.MouseEvent) => {
-      if (e) e.preventDefault();
-      nav("/contact");
-    },
-    [nav]
-  );
+  /* ---------- Handle phone click ---------- */
+  const handlePhoneClick = () => {
+    window.open('tel:919289071052', '_self');
+  };
 
-  /** Keyboard support for dropdown */
-  const onDropdownKey = (e: React.KeyboardEvent<HTMLButtonElement>) => {
-    if (e.key === "Enter" || e.key === " ") setDropdownOpen((p) => !p);
-    if (e.key === "Escape") setDropdownOpen(false);
-    if (e.key === "ArrowDown") setDropdownOpen(true);
+  /* ---------- Handle enquire click ---------- */
+  const handleEnquireClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    nav('/contact');
   };
 
   return (
     <>
-      {/* Announcement Bar */}
-      <div className="relative bg-gradient-to-r from-blue-900 via-purple-900 to-indigo-900 text-white overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-cyan-500/5" />
-
-        {/* Subtle moving dots (disabled if reduced motion) */}
-        {!prefersReducedMotion.current && (
-          <div className="absolute inset-0 opacity-20 pointer-events-none">
-            {[...Array(3)].map((_, i) => (
-              <span
-                key={i}
-                className="absolute w-1 h-1 bg-white rounded-full animate-a4ai-float"
-                style={{ left: `${20 + i * 25}%`, animationDelay: `${i * 2.5}s` }}
-              />
-            ))}
-          </div>
-        )}
-
-        <div className="relative max-w-7xl xl:max-w-8xl mx-auto px-3 sm:px-4 md:px-6 py-2">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-2">
-            {/* Trust indicators */}
-            <div className="flex items-center gap-3 sm:gap-4 text-[11px] sm:text-xs font-medium">
-              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/20">
-                <div className="flex items-center gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <span className="font-semibold whitespace-nowrap">4.7/5 (98 Reviews)</span>
-              </div>
-              <div className="hidden md:flex items-center gap-2 text-blue-200">
-                <UserCheck className="w-3 h-3" />
-                <span>90+ Successful Students</span>
-              </div>
-            </div>
-
-            {/* Main announcement */}
-            <div className="flex items-center gap-2 sm:gap-3">
-              <span className="flex items-center gap-1.5 bg-gradient-to-r from-amber-500 to-orange-500 px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-bold">
-                <Zap className="w-3 h-3" /> LIMITED SEATS
-              </span>
-              <p className="text-xs sm:text-sm font-semibold bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent whitespace-nowrap">
-                🎓 Admissions 2025 — 20% Early Bird + Free Demo
-              </p>
-            </div>
-
-            {/* Urgency */}
-            <div className="flex items-center gap-2 sm:gap-3 text-[11px] sm:text-xs">
-              <div className="hidden xl:flex items-center gap-2 text-green-300">
-                <Clock className="w-3 h-3" />
-                <span>Live Classes Starting</span>
-              </div>
-              <div className="flex items-center gap-2 bg-red-500/20 px-2 py-1 rounded border border-red-500/30">
-                <span className="animate-pulse">⏰</span>
-                <span className="font-semibold">Offer Ends Soon</span>
-              </div>
-            </div>
-          </div>
+      {/* Top Banner */}
+      <div className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white py-2 px-4 text-center text-sm font-bold border-b border-emerald-600 relative overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
+            backgroundSize: '20px 20px'
+          }} />
+        </div>
+        <div className="relative z-10">
+          🎓 <span className="font-black">FREE DEMO CLASSES</span> - Admissions Open 2024-25
         </div>
       </div>
 
       {/* Main Navbar */}
-      <header
-        className={`sticky top-0 z-50 transform transition-transform duration-500 ease-out ${
-          !visible ? "-translate-y-full" : "translate-y-0"
-        } ${
-          scrolled
-            ? "bg-white/95 backdrop-blur-2xl shadow-lg border-b border-gray-200/50"
-            : "bg-white/90 backdrop-blur-md border-b border-transparent"
-        }`}
-      >
-        <div className="max-w-7xl xl:max-w-8xl mx-auto px-3 sm:px-4 md:px-6">
-          <div className="flex items-center justify-between py-2.5 md:py-3.5">
-            {/* Brand */}
-            <Link to="/" className="flex items-center gap-2.5 group flex-shrink-0" aria-label="Anupama Institute home">
-              <span className="relative">
-                <span className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-600 via-purple-600 to-cyan-600 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105 overflow-hidden">
-                  {/* shine */}
-                  {!prefersReducedMotion.current && (
-                    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                  )}
-                  <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6 text-white relative z-10" />
-                </span>
-              </span>
-              <span className="leading-tight">
-                <span className="text-lg sm:text-xl font-black bg-gradient-to-r from-gray-900 via-blue-700 to-purple-600 bg-clip-text text-transparent block">
-                  Anupama Institute
-                </span>
-                <span className="text-[10px] sm:text-xs text-gray-500 font-semibold tracking-wider uppercase flex items-center gap-1">
-                  <span className="w-1 h-1 bg-green-500 rounded-full animate-pulse" />
-                  Excellence in Education
-                </span>
-              </span>
-            </Link>
+      <header className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled 
+          ? "bg-white/95 backdrop-blur-md shadow-2xl border-b border-gray-200/50" 
+          : "bg-white border-b border-gray-200"
+      }`}>
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3">
+          {/* ---------- BRAND ---------- */}
+          <Link
+            to="/"
+            className="flex items-center gap-3 group transition-all flex-shrink-0"
+          >
+            <div className="relative">
+              <img
+              src="/chanakyainstitute/public/favicon.jpg"
+              />
+              
+              <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                <Lightbulb className="w-6 h-6 text-white" />
+              </div>
+            </div>
+            <div className="leading-tight">
+              <div className="text-xl font-black bg-gradient-to-r from-emerald-600 to-teal-700 bg-clip-text text-transparent">
+                Deepjyoti Institute
+              </div>
+              <div className="text-xs text-gray-500 font-semibold">
+                Illuminating Minds
+              </div>
+            </div>
+          </Link>
 
-            {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-4 xl:gap-8">
-              <div className="flex items-center gap-2 xl:gap-6">
-                {NAV_LINKS.map((item) => (
-                  <div key={item.to} className="relative group">
-                    <Link
-                      to={item.to}
-                      className="flex items-center gap-2 font-semibold text-gray-700 hover:text-blue-600 transition-colors px-2.5 py-2 rounded-lg hover:bg-blue-50"
-                    >
-                      <span className="relative">
-                        {item.label}
-                        {item.badge && (
-                          <span className="absolute -top-2 -right-5 text-[10px] px-1.5 py-0.5 rounded-full font-bold bg-green-500 text-white">
-                            {item.badge}
-                          </span>
-                        )}
-                      </span>
-                    </Link>
-                    <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-4/5 group-hover:left-1/10 transition-all rounded-full" />
-                  </div>
-                ))}
+          {/* ---------- DESKTOP NAV ---------- */}
+          <nav className="hidden lg:flex items-center gap-8">
+            {/* Navigation Links */}
+            <div className="flex items-center gap-8">
+              <Link
+                to="/"
+                className="font-bold text-gray-700 hover:text-emerald-600 transition-all duration-300 hover:scale-105"
+              >
+                Home
+              </Link>
 
-                {/* Programs Dropdown */}
-                <div
-                  className="relative"
-                  ref={dropdownWrapRef}
-                  onMouseEnter={() => setDropdownOpen(true)}
-                  onMouseLeave={() => setDropdownOpen(false)}
+              {/* Programs Dropdown */}
+              <div
+                className="relative"
+                ref={wrapRef}
+                onMouseEnter={() => setOpen(true)}
+                onMouseLeave={() => setOpen(false)}
+              >
+                <button
+                  className="inline-flex items-center gap-2 font-bold text-gray-700 hover:text-emerald-600 transition-all duration-300 hover:scale-105 group"
+                  aria-haspopup="menu"
+                  aria-expanded={open}
                 >
-                  <button
-                    type="button"
-                    className="flex items-center gap-2 font-semibold text-gray-700 hover:text-blue-600 transition-colors bg-blue-50 px-3.5 py-2 rounded-lg border border-blue-100 hover:border-blue-200"
-                    aria-haspopup="menu"
-                    aria-expanded={dropdownOpen}
-                    onKeyDown={onDropdownKey}
-                    onClick={() => setDropdownOpen((p) => !p)}
+                  <BookOpen className="w-4 h-4" />
+                  Programs 
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+                </button>
+
+                {open && (
+                  <div
+                    className="absolute left-0 top-full pt-3 z-[999]"
+                    onMouseEnter={() => setOpen(true)}
+                    onMouseLeave={() => setOpen(false)}
                   >
-                    <BookOpen className="w-4 h-4 text-blue-600" />
-                    <span>Programs</span>
-                    <ChevronDown className={`w-4 h-4 transition-transform ${dropdownOpen ? "rotate-180" : ""}`} />
-                  </button>
-
-                  {dropdownOpen && (
-                    <div className="absolute left-0 top-full pt-2 z-50">
-                      <div
-                        role="menu"
-                        className="w-80 rounded-xl border border-gray-200 bg-white/95 backdrop-blur-xl shadow-xl p-5 space-y-4"
-                        onMouseEnter={() => setDropdownOpen(true)}
-                        onMouseLeave={() => setDropdownOpen(false)}
-                      >
-                        <div className="text-center mb-1.5">
-                          <p className="text-base font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                            Academic Programs
-                          </p>
-                          <p className="text-xs text-gray-500">Choose your learning path</p>
+                    <div
+                      role="menu"
+                      className="w-72 rounded-2xl border border-gray-200 bg-white/95 backdrop-blur-md shadow-2xl p-4 space-y-4"
+                    >
+                      <div>
+                        <div className="text-sm font-black text-emerald-600 mb-3 flex items-center gap-2">
+                          <GraduationCap className="w-4 h-4" />
+                          Class 11 Programs
                         </div>
-
-                        <div className="grid gap-3">
-                          <div>
-                            <div className="flex items-center gap-2 text-sm font-semibold text-blue-600 mb-1.5">
-                              <span className="w-2 h-2 bg-blue-500 rounded-full" />
-                              Class 11 Programs
-                            </div>
-                            <ul className="space-y-1">
-                              {class11.map((c) => (
-                                <li key={c.id}>
-                                  <Link
-                                    to={`/courses?select=${c.id}`}
-                                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors group"
-                                  >
-                                    <span className="w-1.5 h-1.5 bg-blue-400 rounded-full group-hover:scale-125 transition-transform" />
-                                    {c.title}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-
-                          <div>
-                            <div className="flex items-center gap-2 text-sm font-semibold text-purple-600 mb-1.5">
-                              <span className="w-2 h-2 bg-purple-500 rounded-full" />
-                              Class 12 Programs
-                            </div>
-                            <ul className="space-y-1">
-                              {class12.map((c) => (
-                                <li key={c.id}>
-                                  <Link
-                                    to={`/courses?select=${c.id}`}
-                                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors group"
-                                  >
-                                    <span className="w-1.5 h-1.5 bg-purple-400 rounded-full group-hover:scale-125 transition-transform" />
-                                    {c.title}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
+                        <ul className="space-y-2">
+                          {class11.map((c) => (
+                            <li key={c.id}>
+                              <Link
+                                to={`/courses?select=${c.id}`}
+                                className="block rounded-xl px-3 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition-all duration-200 hover:translate-x-1 font-medium"
+                              >
+                                {c.title}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      
+                      <div className="border-t border-gray-200 pt-4">
+                        <div className="text-sm font-black text-emerald-600 mb-3 flex items-center gap-2">
+                          <Target className="w-4 h-4" />
+                          Class 12 Programs
                         </div>
+                        <ul className="space-y-2">
+                          {class12.map((c) => (
+                            <li key={c.id}>
+                              <Link
+                                to={`/courses?select=${c.id}`}
+                                className="block rounded-xl px-3 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition-all duration-200 hover:translate-x-1 font-medium"
+                              >
+                                {c.title}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
 
-              {/* Search */}
-              <div
-                className={`relative rounded-xl border transition-all duration-200 ${
-                  searchFocused ? "border-blue-400 shadow-md bg-white" : "border-gray-200 bg-gray-50 hover:bg-white hover:border-gray-300"
-                } px-3.5 py-2 w-48 xl:w-64`}
+              <Link
+                to="/results"
+                className="font-bold text-gray-700 hover:text-emerald-600 transition-all duration-300 hover:scale-105"
               >
-                <Search className={`absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 ${searchFocused ? "text-blue-500" : "text-gray-400"}`} />
-                <input
-                  value={q}
-                  onChange={(e) => setQ(e.target.value)}
-                  onKeyDown={onKey}
-                  onFocus={() => setSearchFocused(true)}
-                  onBlur={() => setSearchFocused(false)}
-                  placeholder="Search courses, topics…"
-                  className="outline-none placeholder:text-gray-400 w-full text-sm bg-transparent text-gray-700 pl-7"
-                  aria-label="Search courses"
-                />
-              </div>
+                Results
+              </Link>
 
-              {/* Actions */}
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={handlePhoneClick}
-                  className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold px-3.5 py-2 rounded-lg transition-transform active:scale-[0.98] flex items-center gap-2 shadow-sm hover:shadow"
-                >
-                  <Phone className="w-4 h-4" />
-                  <span className="hidden xl:inline">Call Now</span>
-                  <span className="xl:hidden">Call</span>
-                </button>
+              <Link
+                to="/blog"
+                className="font-bold text-gray-700 hover:text-emerald-600 transition-all duration-300 hover:scale-105"
+              >
+                Insights
+              </Link>
 
-                <button
-                  type="button"
-                  onClick={handleEnquireClick}
-                  className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold px-4 py-2 rounded-lg transition-transform active:scale-[0.98] flex items-center gap-2 shadow-sm hover:shadow"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  <span className="hidden xl:inline">Enquire</span>
-                  <span className="xl:hidden">Query</span>
-                </button>
-              </div>
-            </nav>
+              <Link
+                to="/contact"
+                className="font-bold text-gray-700 hover:text-emerald-600 transition-all duration-300 hover:scale-105"
+              >
+                Contact
+              </Link>
+            </div>
 
-            {/* Mobile Toggle */}
+            {/* Search Bar */}
+            <div className="flex items-center rounded-xl border border-gray-300 bg-white px-4 py-2.5 focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/20 transition-all duration-300 w-52 hover:shadow-lg">
+              <Search className="w-4 h-4 text-gray-400 mr-3" />
+              <input
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                onKeyDown={onKey}
+                placeholder="Search programs..."
+                className="outline-none placeholder:text-gray-400 w-full text-sm bg-transparent text-gray-700 font-medium"
+              />
+            </div>
+
+            {/* Phone Number Box */}
             <button
-              type="button"
-              className="lg:hidden p-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
-              aria-label="Toggle menu"
-              onClick={() => setMobileOpen((p) => !p)}
+              onClick={handlePhoneClick}
+              className="bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-gray-900 font-black px-5 py-2.5 rounded-xl transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl hover:scale-105 border border-amber-500"
             >
-              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+              <Phone className="w-4 h-4" />
+              <span>9289071052</span>
             </button>
-          </div>
+
+            {/* Enquire Button */}
+            <button
+              onClick={handleEnquireClick}
+              className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-black px-6 py-2.5 rounded-xl transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl hover:scale-105"
+            >
+              <Zap className="w-4 h-4" />
+              Enquire Now
+            </button>
+          </nav>
+
+          {/* ---------- MOBILE MENU BUTTON ---------- */}
+          <button
+            className="lg:hidden p-3 rounded-xl bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all duration-300 hover:scale-105"
+            onClick={() => setMobileMenu((p) => !p)}
+          >
+            {mobileMenu ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
 
-        {/* Mobile Panel */}
-        {mobileOpen && (
-          <div className="lg:hidden bg-white/95 backdrop-blur-xl border-t border-gray-200 shadow-xl">
-            <nav className="flex flex-col p-4 space-y-2">
-              {/* Search */}
-              <div className="flex items-center rounded-xl border border-gray-300 bg-gray-50 px-3.5 py-3 mb-2 focus-within:border-blue-500 focus-within:bg-white transition-colors">
+        {/* ---------- MOBILE MENU PANEL ---------- */}
+        {mobileMenu && (
+          <div className="lg:hidden bg-white/95 backdrop-blur-md border-t border-gray-200 shadow-2xl">
+            <nav className="flex flex-col p-6 space-y-4">
+              {/* Search in Mobile */}
+              <div className="flex items-center rounded-xl border border-gray-300 bg-white px-4 py-3 mb-2 shadow-lg">
                 <Search className="w-4 h-4 text-gray-400 mr-3" />
                 <input
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
                   onKeyDown={onKey}
-                  placeholder="Search courses…"
-                  className="outline-none placeholder:text-gray-400 w-full text-sm bg-transparent text-gray-700"
-                  aria-label="Search courses"
+                  placeholder="Search programs..."
+                  className="outline-none placeholder:text-gray-400 w-full text-sm bg-transparent text-gray-700 font-medium"
                 />
               </div>
 
-              {[{ to: "/", label: "Home" }, { to: "/courses", label: "Programs" }, { to: "/results", label: "Results" }, { to: "/blog", label: "Resources" }, { to: "/contact", label: "Contact" }].map((item) => (
-                <Link
-                  key={item.to}
-                  to={item.to}
-                  onClick={() => setMobileOpen(false)}
-                  className="font-semibold text-gray-700 hover:text-blue-600 py-3 px-4 rounded-lg hover:bg-blue-50 transition-colors"
-                >
-                  {item.label}
-                </Link>
-              ))}
+              <Link 
+                to="/" 
+                onClick={() => setMobileMenu(false)}
+                className="font-bold text-gray-700 hover:text-emerald-600 py-3 px-4 rounded-xl hover:bg-emerald-50 transition-all duration-300 flex items-center gap-3"
+              >
+                <Lightbulb className="w-4 h-4" />
+                Home
+              </Link>
 
-              <div className="border-t border-gray-200 pt-4 mt-2 space-y-2">
+              <Link 
+                to="/courses" 
+                onClick={() => setMobileMenu(false)}
+                className="font-bold text-gray-700 hover:text-emerald-600 py-3 px-4 rounded-xl hover:bg-emerald-50 transition-all duration-300 flex items-center gap-3"
+              >
+                <BookOpen className="w-4 h-4" />
+                Programs
+              </Link>
+
+              <Link 
+                to="/results" 
+                onClick={() => setMobileMenu(false)}
+                className="font-bold text-gray-700 hover:text-emerald-600 py-3 px-4 rounded-xl hover:bg-emerald-50 transition-all duration-300 flex items-center gap-3"
+              >
+                <Target className="w-4 h-4" />
+                Results
+              </Link>
+
+              <Link 
+                to="/blog" 
+                onClick={() => setMobileMenu(false)}
+                className="font-bold text-gray-700 hover:text-emerald-600 py-3 px-4 rounded-xl hover:bg-emerald-50 transition-all duration-300 flex items-center gap-3"
+              >
+                <GraduationCap className="w-4 h-4" />
+                Insights
+              </Link>
+
+              <Link
+                to="/contact"
+                onClick={() => setMobileMenu(false)}
+                className="font-bold text-gray-700 hover:text-emerald-600 py-3 px-4 rounded-xl hover:bg-emerald-50 transition-all duration-300 flex items-center gap-3"
+              >
+                <Phone className="w-4 h-4" />
+                Contact
+              </Link>
+
+              <div className="border-t border-gray-200 pt-4 mt-2 space-y-4">
                 <button
-                  type="button"
                   onClick={() => {
                     handlePhoneClick();
-                    setMobileOpen(false);
+                    setMobileMenu(false);
                   }}
-                  className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-3 rounded-lg transition-transform active:scale-[0.98] flex items-center justify-center gap-3"
+                  className="w-full bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-gray-900 font-black py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-lg"
                 >
                   <Phone className="w-4 h-4" />
-                  <span>Call: {PHONE_NUMBER.replace("+91", "")}</span>
+                  <span>Call: 9289071052</span>
                 </button>
+
                 <button
-                  type="button"
                   onClick={(e) => {
                     handleEnquireClick(e);
-                    setMobileOpen(false);
+                    setMobileMenu(false);
                   }}
-                  className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 rounded-lg transition-transform active:scale-[0.98] flex items-center justify-center gap-3"
+                  className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-black py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-lg"
                 >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>Enquire Now</span>
+                  <Zap className="w-4 h-4" />
+                  Enquire Now
                 </button>
               </div>
             </nav>
           </div>
         )}
       </header>
-
-      {/* Local keyframes (Tailwind can host these globally; included here for portability) */}
-      <style>
-        {`
-        @keyframes a4ai-float { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-10px); } }
-        .animate-a4ai-float { animation: a4ai-float 8s ease-in-out infinite; }
-      `}
-      </style>
     </>
   );
 }

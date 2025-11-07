@@ -1,18 +1,15 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { MapPin, Phone, MessageCircle, Mail, Clock, Users, BookOpen, Star, GraduationCap, Award, Sparkles, Send, Calendar, CheckCircle } from "lucide-react";
+import { MapPin, Phone, MessageCircle, Mail, Clock, Users, BookOpen, Lightbulb, Send, Target } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
   const { toast } = useToast();
   const location = useLocation();
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [activeField, setActiveField] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -21,23 +18,6 @@ const Contact = () => {
     class: "",
     message: ""
   });
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     if (location.hash === "#contact") {
@@ -60,7 +40,7 @@ const Contact = () => {
       return;
     }
 
-    const whatsappMessage = `Hello! I'm interested in admission at Anupama Institute of Education.
+    const whatsappMessage = `Hello! I'm interested in admission at Deepjyoti Institute.
 
 *Name:* ${formData.name}
 *Phone:* ${formData.phone}
@@ -70,7 +50,7 @@ const Contact = () => {
 
 I would like to know more about the admission process and course details.`;
 
-    const whatsappUrl = `https://wa.me/91-7982404990?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappUrl = `https://wa.me/919289071052?text=${encodeURIComponent(whatsappMessage)}`;
     window.open(whatsappUrl, "_blank");
 
     toast({
@@ -96,164 +76,151 @@ I would like to know more about the admission process and course details.`;
     }));
   };
 
-  const contactInfo = [
-    {
-      icon: MapPin,
-      title: "Campus Location",
-      description: "DDA SFS LIG FLATS, ARUNODAYA APARTMENTS,Dwarka Sector-7, New Delhi, Delhi 110077",
-      color: "from-purple-500 to-pink-500",
-      bg: "bg-gradient-to-br from-purple-50 to-pink-50"
-    },
-    {
-      icon: Phone,
-      title: "Phone & WhatsApp",
-      description: "+91-7982404990",
-      color: "from-green-500 to-emerald-500",
-      bg: "bg-gradient-to-br from-green-50 to-emerald-50"
-    },
-    {
-      icon: Mail,
-      title: "Email Address",
-      description: "info@anupamainstitue.edu.in",
-      color: "from-blue-500 to-cyan-500",
-      bg: "bg-gradient-to-br from-blue-50 to-cyan-50"
-    },
-    {
-      icon: Clock,
-      title: "Institute Hours",
-      description: "Mon-Sat: 8:00 AM - 8:00 PM | Sunday: Demo Classes & Tests",
-      color: "from-orange-500 to-red-500",
-      bg: "bg-gradient-to-br from-orange-50 to-red-50"
-    }
-  ];
-
-  const admissionSteps = [
-    { step: "01", title: "Fill Inquiry Form", description: "Complete the admission form" },
-    { step: "02", title: "Free Demo Class", description: "Experience our teaching methodology" },
-    { step: "03", title: "Document Verification", description: "Submit required documents" },
-    { step: "04", title: "Fee Payment", description: "Complete enrollment process" }
-  ];
-
   return (
-    <section 
-      id="contact" 
-      ref={sectionRef}
-      className="scroll-mt-28 min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/30 relative overflow-hidden"
-    >
-      {/* Background Elements */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-r from-purple-200/20 to-pink-200/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-l from-blue-200/20 to-cyan-200/20 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"></div>
-      
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-        {/* Header Section */}
-        <div className={`text-center mb-16 lg:mb-20 transition-all duration-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-cyan-600 text-white px-6 py-3 rounded-full text-sm font-semibold mb-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group cursor-default">
-            <Sparkles className="w-4 h-4 group-hover:rotate-180 transition-transform duration-500" />
-            Begin Your Success Journey
-            <Sparkles className="w-4 h-4 group-hover:-rotate-180 transition-transform duration-500" />
+    <section id="contact" className="scroll-mt-28 py-20 bg-gradient-to-br from-slate-50 via-white to-emerald-50/30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm font-semibold mb-6 border border-emerald-200">
+            <Lightbulb className="w-4 h-4" />
+            Illuminate Your Academic Journey
           </div>
-          
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-slate-900 via-emerald-800 to-slate-900 bg-clip-text text-transparent mb-6 leading-tight">
-            Start Your Academic
-            <span className="block bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent">
-              Transformation
-            </span>
-          </h1>
-          
-          <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Connect with our academic advisors and discover how our personalized learning approach 
-            can help you achieve exceptional results.
+          <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4">
+            Contact <span className="bg-gradient-to-r from-emerald-600 to-teal-700 bg-clip-text text-transparent">Deepjyoti Institute</span>
+          </h2>
+          <p className="text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed">
+            Begin your transformative educational journey. Get in touch for admissions, course details, and personalized campus visits.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-          {/* Contact Information & Sidebar */}
-          <div className="lg:col-span-1 space-y-6 lg:space-y-8">
-            {/* Contact Info Cards */}
-            <div className="space-y-4">
-              {contactInfo.map((item, index) => (
-                <div
-                  key={index}
-                  className={`group p-4 rounded-2xl ${item.bg} backdrop-blur-sm border border-slate-200/60 shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-1 ${
-                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                  }`}
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <div className="flex items-start gap-4">
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${item.color} flex items-center justify-center shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
-                      <item.icon className="w-5 h-5 text-white" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-slate-900 mb-1">{item.title}</h3>
-                      <p className="text-slate-600 text-sm leading-relaxed">{item.description}</p>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Contact Information */}
+          <div className="lg:col-span-1 space-y-6">
+            <Card className="shadow-2xl border border-emerald-200 bg-white rounded-3xl overflow-hidden">
+              <CardHeader className="pb-3 bg-gradient-to-r from-emerald-600 to-teal-700 text-white p-6 border-0">
+                <CardTitle className="text-white flex items-center gap-3 text-xl">
+                  <Users className="w-6 h-6" />
+                  Get in Touch
+                </CardTitle>
+                <CardDescription className="text-white text-opacity-90 text-base">
+                  Your educational transformation begins here
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4 p-6">
+                <div className="flex items-start space-x-4 p-4 bg-emerald-50 rounded-2xl border border-emerald-100 hover:shadow-md transition-all duration-300">
+                  <div className="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-emerald-900 mb-1">Our Campus</p>
+                    <p className="text-sm text-emerald-700 leading-relaxed">
+                      Daani Bhawan, 852 Agarbatti Wali Gali<br />
+                      Palam Village, New Delhi
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4 p-4 bg-emerald-50 rounded-2xl border border-emerald-100 hover:shadow-md transition-all duration-300">
+                  <div className="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-emerald-900 mb-1">Phone Numbers</p>
+                    <div className="space-y-1">
+                      <a href="tel:919289071052" className="block text-sm text-emerald-700 hover:text-emerald-800 transition-colors">
+                        +91-9289071052
+                      </a>
+                      <a href="tel:919354453092" className="block text-sm text-emerald-700 hover:text-emerald-800 transition-colors">
+                        +91-9354453092
+                      </a>
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
 
-            {/* Admission Process */}
-            <Card className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-200/60 hover:shadow-2xl transition-all duration-500">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-slate-900 flex items-center gap-3">
-                  <GraduationCap className="w-6 h-6 text-emerald-600" />
-                  Admission Process
-                </CardTitle>
-                <CardDescription className="text-slate-600">
-                  Simple 4-step enrollment journey
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {admissionSteps.map((step, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-4 p-3 rounded-xl bg-slate-50/50 hover:bg-white transition-all duration-300 group"
-                  >
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-600 flex items-center justify-center text-white text-sm font-bold group-hover:scale-110 transition-transform duration-300">
-                      {step.step}
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-slate-900 text-sm">{step.title}</h4>
-                      <p className="text-slate-500 text-xs">{step.description}</p>
-                    </div>
-                    <CheckCircle className="w-4 h-4 text-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="flex items-start space-x-4 p-4 bg-emerald-50 rounded-2xl border border-emerald-100 hover:shadow-md transition-all duration-300">
+                  <div className="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <MessageCircle className="w-6 h-6 text-white" />
                   </div>
-                ))}
-                
-                <div className="pt-3 border-t border-slate-200/60">
-                  <p className="text-xs text-slate-500 flex items-center gap-2">
-                    <Star className="w-3 h-3 text-amber-500" />
-                    Scholarships available for meritorious students
+                  <div>
+                    <p className="font-bold text-emerald-900 mb-1">WhatsApp</p>
+                    <p className="text-sm text-emerald-700">+91-9289071052</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4 p-4 bg-emerald-50 rounded-2xl border border-emerald-100 hover:shadow-md transition-all duration-300">
+                  <div className="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-emerald-900 mb-1">Email</p>
+                    <p className="text-sm text-emerald-700">info@deepjyotiinstitute.edu.in</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4 p-4 bg-emerald-50 rounded-2xl border border-emerald-100 hover:shadow-md transition-all duration-300">
+                  <div className="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Clock className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-emerald-900 mb-1">Institute Hours</p>
+                    <p className="text-sm text-emerald-700 leading-relaxed">
+                      Mon-Sat: 7:30 AM - 8:30 PM<br />
+                      Sunday: Demo Classes & Special Sessions
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Quick Info Card */}
+            <Card className="shadow-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 rounded-3xl overflow-hidden">
+              <CardHeader className="pb-3 p-6">
+                <CardTitle className="text-gray-900 flex items-center gap-3 text-xl">
+                  <Target className="w-6 h-6 text-amber-600" />
+                  Quick Admission Process
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4 p-6 pt-0">
+                <div className="text-sm text-gray-800">
+                  <p className="font-bold mb-3 text-amber-700">Simple 4-Step Process:</p>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-3">
+                      <div className="w-6 h-6 bg-amber-500 text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">1</div>
+                      <span>Fill Inquiry Form & Consultation</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="w-6 h-6 bg-amber-500 text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">2</div>
+                      <span>Attend Free Demo Class</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="w-6 h-6 bg-amber-500 text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">3</div>
+                      <span>Academic Assessment & Counseling</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="w-6 h-6 bg-amber-500 text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">4</div>
+                      <span>Documentation & Enrollment</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="pt-3 border-t border-amber-200">
+                  <p className="text-xs text-amber-600 font-semibold">
+                    * Scholarships available for meritorious students
                   </p>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Campus Map */}
-            <Card className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-200/60 overflow-hidden group hover:shadow-2xl transition-all duration-500">
-              <CardContent className="p-0 relative">
-                <div className="w-full h-48 bg-gradient-to-br from-slate-100 to-slate-200 relative overflow-hidden">
-                  {/* Map Pattern */}
-                  <div className="absolute inset-0 opacity-20">
-                    <div className="absolute top-4 left-4 w-16 h-16 border-2 border-slate-300 rounded-lg"></div>
-                    <div className="absolute top-4 right-4 w-8 h-8 border-2 border-slate-300 rounded-full"></div>
-                    <div className="absolute bottom-8 left-1/2 w-24 h-1 bg-slate-300 transform -translate-x-1/2"></div>
-                  </div>
-                  
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-cyan-600 rounded-full flex items-center justify-center shadow-lg mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
-                        <MapPin className="w-5 h-5 text-white" />
-                      </div>
-                      <p className="text-sm font-semibold text-slate-800">Anupama Institute Campus</p>
-                      <p className="text-xs text-slate-600 mt-1">Near Palam Metro Station</p>
-                      <div className="inline-flex items-center gap-1 mt-2 px-3 py-1 bg-white/80 rounded-full text-xs text-slate-700">
-                        <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                        Easy Accessibility
-                      </div>
+            {/* Map placeholder */}
+            <Card className="shadow-2xl border border-emerald-200 bg-white rounded-3xl overflow-hidden">
+              <CardContent className="p-0">
+                <div className="w-full h-48 bg-gradient-to-br from-emerald-100 to-teal-200 rounded-2xl flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-teal-600/10"></div>
+                  <div className="text-center relative z-10">
+                    <div className="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-3">
+                      <MapPin className="w-8 h-8 text-emerald-600" />
                     </div>
+                    <p className="text-lg font-bold text-emerald-900">Deepjyoti Institute Campus</p>
+                    <p className="text-sm text-emerald-700 mt-1">Palam Village, New Delhi</p>
+                    <p className="text-xs text-emerald-600 mt-2 font-semibold">📍 Easy Accessibility</p>
                   </div>
                 </div>
               </CardContent>
@@ -262,214 +229,145 @@ I would like to know more about the admission process and course details.`;
 
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <Card className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-200/60 hover:shadow-2xl transition-all duration-500 overflow-hidden">
-              <CardHeader className="pb-6 bg-gradient-to-r from-slate-900 to-slate-800 text-white relative overflow-hidden">
-                {/* Animated background */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
-                <div className="absolute bottom-0 left-0 w-24 h-24 bg-emerald-500/20 rounded-full -translate-x-12 translate-y-12"></div>
-                
-                <div className="relative">
-                  <CardTitle className="text-white flex items-center gap-3 text-2xl">
-                    <MessageCircle className="w-6 h-6 text-emerald-400" />
-                    Admission Inquiry Form
-                  </CardTitle>
-                  <CardDescription className="text-white/80 text-lg mt-2">
-                    Complete this form and we'll contact you within 24 hours for a free demo class
-                  </CardDescription>
-                </div>
+            <Card className="shadow-2xl border border-emerald-200 bg-white rounded-3xl overflow-hidden">
+              <CardHeader className="pb-3 bg-gradient-to-r from-emerald-600 to-teal-700 text-white p-6 border-0">
+                <CardTitle className="text-white flex items-center gap-3 text-xl">
+                  <Send className="w-6 h-6" />
+                  Admission Inquiry Form
+                </CardTitle>
+                <CardDescription className="text-white text-opacity-90 text-base">
+                  Complete this form and we'll contact you within 24 hours for a free demo class
+                </CardDescription>
               </CardHeader>
-              
-              <CardContent className="p-6 lg:p-8">
+              <CardContent className="p-6">
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Name Field */}
-                    <div className="space-y-2">
-                      <label htmlFor="name" className="block text-sm font-semibold text-slate-900">
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-bold text-gray-900 mb-3">
                         Student's Name *
                       </label>
-                      <div 
-                        className={`relative transition-all duration-300 ${
-                          activeField === 'name' ? 'scale-105' : 'scale-100'
-                        }`}
-                      >
-                        <Input
-                          id="name"
-                          name="name"
-                          type="text"
-                          required
-                          value={formData.name}
-                          onChange={handleChange}
-                          onFocus={() => setActiveField('name')}
-                          onBlur={() => setActiveField(null)}
-                          className="bg-white/80 border-slate-300 focus:border-emerald-500 focus:ring-emerald-500/20 h-12 rounded-xl transition-all duration-300 shadow-sm"
-                          placeholder="Enter student's full name"
-                        />
-                        {activeField === 'name' && (
-                          <div className="absolute inset-0 border-2 border-emerald-500 rounded-xl pointer-events-none animate-pulse"></div>
-                        )}
-                      </div>
+                      <Input
+                        id="name"
+                        name="name"
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={handleChange}
+                        className="bg-white border-emerald-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-xl py-3 px-4 text-gray-900"
+                        placeholder="Enter student's full name"
+                      />
                     </div>
 
-                    {/* Phone Field */}
-                    <div className="space-y-2">
-                      <label htmlFor="phone" className="block text-sm font-semibold text-slate-900">
+                    <div>
+                      <label htmlFor="phone" className="block text-sm font-bold text-gray-900 mb-3">
                         Parent's Phone Number *
                       </label>
-                      <div 
-                        className={`relative transition-all duration-300 ${
-                          activeField === 'phone' ? 'scale-105' : 'scale-100'
-                        }`}
-                      >
-                        <Input
-                          id="phone"
-                          name="phone"
-                          type="tel"
-                          required
-                          value={formData.phone}
-                          onChange={handleChange}
-                          onFocus={() => setActiveField('phone')}
-                          onBlur={() => setActiveField(null)}
-                          className="bg-white/80 border-slate-300 focus:border-emerald-500 focus:ring-emerald-500/20 h-12 rounded-xl transition-all duration-300 shadow-sm"
-                          placeholder="Enter parent's phone number"
-                        />
-                        {activeField === 'phone' && (
-                          <div className="absolute inset-0 border-2 border-emerald-500 rounded-xl pointer-events-none animate-pulse"></div>
-                        )}
-                      </div>
+                      <Input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        required
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className="bg-white border-emerald-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-xl py-3 px-4 text-gray-900"
+                        placeholder="Enter parent's phone number"
+                      />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Email Field */}
-                    <div className="space-y-2">
-                      <label htmlFor="email" className="block text-sm font-semibold text-slate-900">
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-bold text-gray-900 mb-3">
                         Email Address
                       </label>
-                      <div 
-                        className={`relative transition-all duration-300 ${
-                          activeField === 'email' ? 'scale-105' : 'scale-100'
-                        }`}
-                      >
-                        <Input
-                          id="email"
-                          name="email"
-                          type="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          onFocus={() => setActiveField('email')}
-                          onBlur={() => setActiveField(null)}
-                          className="bg-white/80 border-slate-300 focus:border-emerald-500 focus:ring-emerald-500/20 h-12 rounded-xl transition-all duration-300 shadow-sm"
-                          placeholder="Enter email address"
-                        />
-                        {activeField === 'email' && (
-                          <div className="absolute inset-0 border-2 border-emerald-500 rounded-xl pointer-events-none animate-pulse"></div>
-                        )}
-                      </div>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="bg-white border-emerald-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-xl py-3 px-4 text-gray-900"
+                        placeholder="Enter email address"
+                      />
                     </div>
 
-                    {/* Class Field */}
-                    <div className="space-y-2">
-                      <label htmlFor="class" className="block text-sm font-semibold text-slate-900">
+                    <div>
+                      <label htmlFor="class" className="block text-sm font-bold text-gray-900 mb-3">
                         Class/Course Interested In *
                       </label>
-                      <div 
-                        className={`relative transition-all duration-300 ${
-                          activeField === 'class' ? 'scale-105' : 'scale-100'
-                        }`}
+                      <select
+                        id="class"
+                        name="class"
+                        required
+                        value={formData.class}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 bg-white border border-emerald-300 rounded-xl focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 text-gray-900"
                       >
-                        <select
-                          id="class"
-                          name="class"
-                          required
-                          value={formData.class}
-                          onChange={handleChange}
-                          onFocus={() => setActiveField('class')}
-                          onBlur={() => setActiveField(null)}
-                          className="w-full px-4 py-3 bg-white/80 border border-slate-300 rounded-xl focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 text-slate-900 transition-all duration-300 shadow-sm"
-                        >
-                          <option value="">Select Class/Course</option>
-                          <optgroup label="Foundation Programs">
-                            <option value="Class 1-5 All Subjects">Class 1-5 All Subjects</option>
-                            <option value="Class 6-8 All Subjects">Class 6-8 All Subjects</option>
-                          </optgroup>
-                          <optgroup label="Class 9-10">
-                            <option value="Class 9 Science & Maths">Class 9 Science & Maths</option>
-                            <option value="Class 9 SST & English">Class 9 SST & English</option>
-                            <option value="Class 10 Science & Maths">Class 10 Science & Maths</option>
-                            <option value="Class 10 SST & English">Class 10 SST & English</option>
-                          </optgroup>
-                          <optgroup label="Class 11-12 Science">
-                            <option value="Class 11 Science (PCM)">Class 11 Science (PCM)</option>
-                            <option value="Class 11 Science (PCB)">Class 11 Science (PCB)</option>
-                            <option value="Class 12 Science (PCM)">Class 12 Science (PCM)</option>
-                            <option value="Class 12 Science (PCB)">Class 12 Science (PCB)</option>
-                          </optgroup>
-                          <optgroup label="Class 11-12 Commerce">
-                            <option value="Class 11 Commerce">Class 11 Commerce</option>
-                            <option value="Class 12 Commerce">Class 12 Commerce</option>
-                          </optgroup>
-                          <optgroup label="Class 11-12 Humanities">
-                            <option value="Class 11 Humanities">Class 11 Humanities</option>
-                            <option value="Class 12 Humanities">Class 12 Humanities</option>
-                          </optgroup>
-                          <optgroup label="Skill Development">
-                            <option value="English Speaking Course">English Speaking Course</option>
-                            <option value="AI & Python Programming">AI & Python Programming</option>
-                          </optgroup>
-                        </select>
-                        {activeField === 'class' && (
-                          <div className="absolute inset-0 border-2 border-emerald-500 rounded-xl pointer-events-none animate-pulse"></div>
-                        )}
-                      </div>
+                        <option value="">Select Class/Course</option>
+                        <optgroup label="Foundation Programs">
+                          <option value="Class 1-5 All Subjects">Class 1-5 All Subjects</option>
+                          <option value="Class 6-8 All Subjects">Class 6-8 All Subjects</option>
+                        </optgroup>
+                        <optgroup label="Class 9-10">
+                          <option value="Class 9 Science & Maths">Class 9 Science & Maths</option>
+                          <option value="Class 9 SST & English">Class 9 SST & English</option>
+                          <option value="Class 10 Science & Maths">Class 10 Science & Maths</option>
+                          <option value="Class 10 SST & English">Class 10 SST & English</option>
+                        </optgroup>
+                        <optgroup label="Class 11-12 Science">
+                          <option value="Class 11 Science (PCM)">Class 11 Science (PCM)</option>
+                          <option value="Class 11 Science (PCB)">Class 11 Science (PCB)</option>
+                          <option value="Class 12 Science (PCM)">Class 12 Science (PCM)</option>
+                          <option value="Class 12 Science (PCB)">Class 12 Science (PCB)</option>
+                        </optgroup>
+                        <optgroup label="Class 11-12 Commerce">
+                          <option value="Class 11 Commerce">Class 11 Commerce</option>
+                          <option value="Class 12 Commerce">Class 12 Commerce</option>
+                        </optgroup>
+                        <optgroup label="Class 11-12 Humanities">
+                          <option value="Class 11 Humanities">Class 11 Humanities</option>
+                          <option value="Class 12 Humanities">Class 12 Humanities</option>
+                        </optgroup>
+                        <optgroup label="Skill Development">
+                          <option value="English Speaking Course">English Speaking Course</option>
+                          <option value="AI & Python Programming">AI & Python Programming</option>
+                        </optgroup>
+                      </select>
                     </div>
                   </div>
 
-                  {/* Message Field */}
-                  <div className="space-y-2">
-                    <label htmlFor="message" className="block text-sm font-semibold text-slate-900">
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-bold text-gray-900 mb-3">
                       Additional Information
                     </label>
-                    <div 
-                      className={`relative transition-all duration-300 ${
-                        activeField === 'message' ? 'scale-105' : 'scale-100'
-                      }`}
-                    >
-                      <Textarea
-                        id="message"
-                        name="message"
-                        rows={4}
-                        value={formData.message}
-                        onChange={handleChange}
-                        onFocus={() => setActiveField('message')}
-                        onBlur={() => setActiveField(null)}
-                        className="bg-white/80 border-slate-300 focus:border-emerald-500 focus:ring-emerald-500/20 rounded-xl transition-all duration-300 shadow-sm resize-none"
-                        placeholder="Tell us about your academic goals, specific requirements, or any questions you have..."
-                      />
-                      {activeField === 'message' && (
-                        <div className="absolute inset-0 border-2 border-emerald-500 rounded-xl pointer-events-none animate-pulse"></div>
-                      )}
-                    </div>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      rows={4}
+                      value={formData.message}
+                      onChange={handleChange}
+                      className="bg-white border-emerald-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-xl py-3 px-4 text-gray-900"
+                      placeholder="Tell us about your academic goals, specific requirements, or any questions you have..."
+                    />
                   </div>
 
-                  {/* Submit Button */}
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700 text-white shadow-xl hover:shadow-2xl transition-all duration-300 font-bold py-4 text-lg rounded-xl hover:scale-105 transform group"
+                    className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white shadow-xl hover:shadow-2xl transition-all duration-300 font-bold py-4 text-lg rounded-2xl hover:scale-105"
                   >
-                    <Send className="w-5 h-5 mr-3 group-hover:translate-x-1 transition-transform duration-300" />
+                    <MessageCircle className="w-5 h-5 mr-3" />
                     Send Inquiry via WhatsApp
                   </Button>
 
-                  {/* Alternative Contact */}
-                  <div className="text-center pt-4 border-t border-slate-200/60">
-                    <p className="text-sm text-slate-600 flex items-center justify-center gap-2">
-                      <Phone className="w-4 h-4 text-emerald-600" />
-                      Prefer to call?{" "}
-                      <a 
-                        href="tel:+91-7982404990" 
-                        className="font-semibold text-emerald-600 hover:text-emerald-700 transition-colors duration-200"
-                      >
-                        +91-7982404990
+                  <div className="text-center pt-4">
+                    <p className="text-sm text-gray-600">
+                      Alternatively, call us directly at{" "}
+                      <a href="tel:919289071052" className="font-bold text-emerald-600 hover:text-emerald-700 transition-colors">
+                        +91-9289071052
+                      </a>
+                      {" "}or{" "}
+                      <a href="tel:919354453092" className="font-bold text-emerald-600 hover:text-emerald-700 transition-colors">
+                        +91-9354453092
                       </a>
                     </p>
                   </div>
