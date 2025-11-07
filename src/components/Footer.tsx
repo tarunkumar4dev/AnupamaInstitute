@@ -1,224 +1,185 @@
-// src/components/Footer.tsx
-import { MapPin, Phone, Mail, MessageCircle, GraduationCap, ArrowRight, BookOpen, Users, Award, Sparkles, ExternalLink } from "lucide-react";
-import { useState, useEffect } from "react";
+import { MapPin, Phone, Mail, MessageCircle, GraduationCap, Lightbulb, BookOpen, Users, Target } from "lucide-react";
 
 const Footer = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const footer = document.getElementById('main-footer');
-    if (footer) observer.observe(footer);
-
-    return () => observer.disconnect();
-  }, []);
-
-  const quickLinks = [
-    { label: "Courses & Programs", href: "#courses", icon: BookOpen },
-    { label: "About Institute", href: "#about", icon: Users },
-    { label: "Student Results", href: "#results", icon: Award },
-    { label: "Contact Us", href: "#contact", icon: MessageCircle },
-    { label: "Admissions", href: "#admissions", icon: GraduationCap },
-  ];
-
-  const programs = [
-    "Class 9–10 (Maths & Science)",
-    "Class 11–12 Commerce",
-    "Class 11–12 Science", 
-    "Class 11–12 Humanities",
-    "Board Exam Preparation",
-    "Competitive Test Series"
-  ];
-
-  const contactInfo = [
-    { icon: MapPin, text: "DDA SFS LIG FLATS, ARUNODAYA APARTMENTS,Dwarka Sector-7, New Delhi, Delhi 110077", color: "from-purple-500 to-pink-500" },
-    { icon: Phone, text: "+91-7982404990", color: "from-green-500 to-emerald-500" },
-    { icon: MessageCircle, text: "WhatsApp Available", color: "from-blue-500 to-cyan-500" },
-    { icon: Mail, text: "info@anupamainstitute.edu.in", color: "from-orange-500 to-red-500" }
-  ];
-
   return (
-    <footer id="main-footer" className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Background Elements */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-0 left-0 w-72 h-72 bg-emerald-500 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"></div>
-      </div>
-
-      {/* Main Footer Content */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-        <div className={`grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-8 lg:gap-12 transition-all duration-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
-          
-          {/* Brand Section */}
-          <div className="xl:col-span-2 space-y-6">
-            <div className="flex items-start gap-4 group cursor-pointer">
-              <div className="relative">
-                <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-cyan-600 rounded-2xl flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-500">
-                  <GraduationCap className="w-8 h-8 text-white" />
-                </div>
-                <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500 to-cyan-600 rounded-2xl opacity-0 group-hover:opacity-20 blur-md transition-opacity duration-500"></div>
+    <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-emerald-900 text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          {/* ---------- BRAND ---------- */}
+          <div className="space-y-6">
+            <div className="flex items-center gap-4">
+              <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center border-2 border-white/20 shadow-2xl">
+                <Lightbulb className="w-10 h-10 text-white" />  
               </div>
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">
-                  Anupama Institute
+              <div>
+                <h3 className="text-2xl font-black tracking-tight">
+                  Deepjyoti Institute
                 </h3>
-                <p className="text-emerald-400 text-sm font-semibold mt-1 flex items-center gap-2">
-                  <Sparkles className="w-4 h-4" />
-                  Premier Education Since 2023
-                </p>
-                <p className="text-slate-300 text-sm leading-relaxed mt-3 max-w-md">
-                  Transforming academic journeys through personalized coaching for Classes 9–12. 
-                  Specializing in <span className="font-semibold text-white">Commerce, Mathematics & Science</span> with proven track record of excellence.
-                </p>
+                <p className="text-sm text-emerald-300 mt-2 font-semibold">Illuminating Minds Since 2019</p>
               </div>
             </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 pt-4">
-              {[
-                { number: "6+", label: "Years Excellence" },
-                { number: "500+", label: "Students Trained" },
-                { number: "95%", label: "Success Rate" }
-              ].map((stat, index) => (
-                <div key={index} className="text-center p-3 bg-white/5 rounded-xl backdrop-blur-sm border border-white/10 hover:border-emerald-500/30 transition-all duration-300 group">
-                  <div className="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors duration-300">{stat.number}</div>
-                  <div className="text-xs text-slate-400 group-hover:text-slate-300">{stat.label}</div>
-                </div>
-              ))}
+            <p className="text-gray-300 text-base leading-relaxed max-w-sm">
+              Premier educational institute in Palam Village, specializing in{" "}
+              <span className="font-bold text-emerald-300">Commerce, Science & Humanities</span> with expert faculty and transformative results since 2019.
+            </p>
+            <div className="flex items-center gap-2 text-sm text-gray-400">
+              <Target className="w-4 h-4 text-emerald-400" />
+              <span>Transforming Education, Illuminating Futures</span>
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="space-y-6">
-            <h4 className="text-lg font-semibold text-white flex items-center gap-2">
+          {/* ---------- QUICK LINKS ---------- */}
+          <div>
+            <h4 className="font-black text-lg mb-6 text-white flex items-center gap-2">
               <BookOpen className="w-5 h-5 text-emerald-400" />
-              Quick Navigation
+              Quick Links
             </h4>
-            <ul className="space-y-3">
-              {quickLinks.map((link, index) => (
-                <li key={index}>
+            <ul className="space-y-3 text-base">
+              {[
+                { label: "Academic Programs", href: "#courses" },
+                { label: "About Institute", href: "#about" },
+                { label: "Student Achievements", href: "#results" },
+                { label: "Contact Us", href: "#contact" },
+                { label: "Admission Process", href: "#admissions" },
+              ].map((link, i) => (
+                <li key={i}>
                   <a
                     href={link.href}
-                    className="group flex items-center gap-2 text-slate-300 hover:text-white transition-all duration-300 hover:translate-x-1 text-sm"
+                    className="text-gray-300 hover:text-emerald-300 transition-all duration-300 hover:pl-3 block hover:font-bold group"
                   >
-                    <link.icon className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform duration-300" />
+                    <span className="group-hover:text-emerald-400">› </span>
                     {link.label}
-                    <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
                   </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Programs */}
-          <div className="space-y-6">
-            <h4 className="text-lg font-semibold text-white flex items-center gap-2">
-              <Award className="w-5 h-5 text-cyan-400" />
+          {/* ---------- COURSES ---------- */}
+          <div>
+            <h4 className="font-black text-lg mb-6 text-white flex items-center gap-2">
+              <Users className="w-5 h-5 text-amber-400" />
               Our Programs
             </h4>
-            <ul className="space-y-3">
-              {programs.map((program, index) => (
-                <li key={index} className="flex items-start gap-2 group">
-                  <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mt-2 group-hover:scale-150 transition-transform duration-300"></div>
-                  <span className="text-slate-300 group-hover:text-white transition-colors duration-300 text-sm flex-1">
-                    {program}
-                  </span>
+            <ul className="space-y-3 text-base text-gray-300">
+              {[
+                "Class 9-10 (Science & Maths)",
+                "Class 11-12 Commerce",
+                "Class 11-12 Science (PCM/PCB)",
+                "Class 11-12 Humanities",
+                "Foundation Classes (1-8)",
+                "English Speaking Course",
+                "AI & Python Programming"
+              ].map((program, i) => (
+                <li key={i} className="hover:text-amber-300 transition-colors duration-300 hover:font-medium">
+                  {program}
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact & CTA */}
-          <div className="space-y-6">
-            <h4 className="text-lg font-semibold text-white flex items-center gap-2">
-              <MessageCircle className="w-5 h-5 text-purple-400" />
+          {/* ---------- CONTACT INFO ---------- */}
+          <div>
+            <h4 className="font-black text-lg mb-6 text-white flex items-center gap-2">
+              <MessageCircle className="w-5 h-5 text-amber-400" />
               Get In Touch
             </h4>
-            <div className="space-y-4">
-              {contactInfo.map((item, index) => (
-                <div key={index} className="flex items-start gap-3 group">
-                  <div className={`w-8 h-8 rounded-lg bg-gradient-to-r ${item.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
-                    <item.icon className="w-4 h-4 text-white" />
-                  </div>
-                  <span className="text-slate-300 group-hover:text-white transition-colors duration-300 text-sm leading-relaxed">
-                    {item.text}
-                  </span>
+            <div className="space-y-4 text-base">
+              <div className="flex items-start gap-3 group hover:translate-x-1 transition-transform duration-300">
+                <div className="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                  <MapPin className="w-5 h-5 text-emerald-400" />
                 </div>
-              ))}
-            </div>
-
-            {/* CTA Button */}
-            <button className="w-full group bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700 text-white font-semibold py-3 px-6 rounded-xl shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105 transform flex items-center justify-center gap-2 border border-emerald-500/30">
-              <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-              Book Campus Tour
-              <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-300" />
-            </button>
-
-            {/* Accreditation Badges */}
-            <div className="flex flex-wrap gap-3 pt-4">
-              {["CBSE Curriculum"].map((badge, index) => (
-                <div key={index} className="px-3 py-1 bg-white/5 rounded-full border border-white/10 hover:border-emerald-500/30 transition-all duration-300 group">
-                  <span className="text-xs text-slate-300 group-hover:text-white">{badge}</span>
+                <span className="text-gray-300 group-hover:text-white">
+                  Daani Bhawan, 852 Agarbatti Wali Gali<br />
+                  Palam Village, New Delhi
+                </span>
+              </div>
+              <div className="flex items-center gap-3 group hover:translate-x-1 transition-transform duration-300">
+                <div className="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Phone className="w-5 h-5 text-emerald-400" />
                 </div>
-              ))}
+                <div className="space-y-1">
+                  <a href="tel:919289071052" className="text-gray-300 group-hover:text-white block hover:text-emerald-300 transition-colors">
+                    +91-9289071052
+                  </a>
+                  <a href="tel:919354453092" className="text-gray-300 group-hover:text-white block hover:text-emerald-300 transition-colors">
+                    +91-9354453092
+                  </a>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 group hover:translate-x-1 transition-transform duration-300">
+                <div className="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <MessageCircle className="w-5 h-5 text-emerald-400" />
+                </div>
+                <span className="text-gray-300 group-hover:text-white">WhatsApp Available</span>
+              </div>
+              <div className="flex items-center gap-3 group hover:translate-x-1 transition-transform duration-300">
+                <div className="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Mail className="w-5 h-5 text-emerald-400" />
+                </div>
+                <span className="text-gray-300 group-hover:text-white">info@deepjyotiinstitute.edu.in</span>
+              </div>
+              
+              {/* Call to Action */}
+              <button className="mt-6 w-full bg-gradient-to-r from-amber-400 to-orange-500 text-gray-900 font-black py-3 px-6 rounded-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
+                <span className="group-hover:scale-105 transition-transform">Book Campus Tour</span>
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className={`border-t border-white/10 mt-12 pt-8 transition-all duration-1000 delay-300 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
-          <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
-            {/* Copyright */}
-            <div className="text-center lg:text-left">
-              <p className="text-slate-400 text-sm">
-                © {new Date().getFullYear()} <span className="font-semibold text-white">Anupama Institute of Education</span>. 
-                All rights reserved.
-              </p>
-              <p className="text-slate-500 text-xs mt-1">
-                Empowering students for academic excellence since 2023
-              </p>
-            </div>
+        {/* ---------- BOTTOM BAR ---------- */}
+        <div className="border-t border-white/20 mt-14 pt-8 flex flex-col md:flex-row justify-between items-center text-base">
+          <p className="text-center md:text-left text-gray-300">
+            © {new Date().getFullYear()} <span className="font-black text-white">Deepjyoti Institute</span>. All rights reserved.
+          </p>
 
-            {/* Legal Links */}
-            <div className="flex flex-wrap justify-center gap-6">
-              {["Terms of Service", "Privacy Policy", "Refund Policy"].map((link, index) => (
-                <a
-                  key={index}
-                  href="#"
-                  className="text-slate-400 hover:text-emerald-400 transition-all duration-300 hover:scale-105 text-sm font-medium group flex items-center gap-1"
-                >
-                  {link}
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Final Accreditation */}
-          <div className="text-center mt-6 pt-6 border-t border-white/5">
-            <p className="text-xs text-slate-500">
-               CBSE Curriculum
-              <span className="text-emerald-400 ml-1">Transforming Education Since 2023</span>
-            </p>
+          <div className="flex space-x-8 mt-6 md:mt-0">
+            {[
+              { label: "Terms of Service", href: "#" },
+              { label: "Privacy Policy", href: "#" },
+              { label: "Refund Policy", href: "#" }
+            ].map((link, i) => (
+              <a
+                key={i}
+                href={link.href}
+                className="text-gray-400 hover:text-emerald-300 transition-all duration-300 hover:font-bold"
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
         </div>
-      </div>
 
-      {/* Floating Elements */}
-      <div className="absolute bottom-4 right-4 opacity-10">
-        <Sparkles className="w-8 h-8 text-emerald-400 animate-pulse" />
+        {/* ---------- ACCREDITATION ---------- */}
+        <div className="text-center mt-8 pt-6 border-t border-white/10">
+          <p className="text-sm text-gray-400 font-semibold">
+            Affiliated with CBSE Curriculum | Recognized Educational Institute | Excellence in Teaching Standards
+          </p>
+          <div className="flex justify-center items-center gap-6 mt-4 text-xs text-gray-500">
+            <span>🏆 Proven Academic Results</span>
+            <span>⭐ Expert Faculty Team</span>
+            <span>🔬 Modern Teaching Methods</span>
+          </div>
+        </div>
+
+        {/* ---------- SOCIAL & ADDITIONAL INFO ---------- */}
+        <div className="text-center mt-8 pt-6 border-t border-white/10">
+          <div className="flex justify-center items-center gap-8 text-gray-400 text-sm">
+            <div className="flex items-center gap-2">
+              <GraduationCap className="w-4 h-4 text-emerald-400" />
+              <span>Classes 1-12</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Users className="w-4 h-4 text-amber-400" />
+              <span>Small Batch Sizes</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Target className="w-4 h-4 text-emerald-400" />
+              <span>Personalized Attention</span>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
   );

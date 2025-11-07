@@ -1,35 +1,12 @@
+// src/pages/ResultsPage.tsx
 import { Link, useLocation } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { TOPPERS } from "@/data/results";
-import { Award, Star, TrendingUp, Target, BookOpen, Sparkles, Medal, Trophy, GraduationCap, ArrowRight } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { Award, Star, TrendingUp, Target, BookOpen, Trophy, Medal, Zap } from "lucide-react";
 
 export default function ResultsPage() {
   const location = useLocation();
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
 
   const onApplyClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     if (location.pathname === "/contact") {
@@ -41,267 +18,182 @@ export default function ResultsPage() {
     }
   };
 
-  const stats = [
-    { 
-      icon: Star, 
-      label: "School Toppers", 
-      value: "50+", 
-      color: "from-amber-500 to-orange-500",
-      bgColor: "bg-amber-50",
-      delay: 0
-    },
-    { 
-      icon: TrendingUp, 
-      label: "Above 90%", 
-      value: "85%", 
-      color: "from-emerald-500 to-green-600",
-      bgColor: "bg-emerald-50",
-      delay: 100
-    },
-    { 
-      icon: Target, 
-      label: "Success Rate", 
-      value: "98%", 
-      color: "from-blue-500 to-cyan-600",
-      bgColor: "bg-blue-50",
-      delay: 200
-    },
-    { 
-      icon: Award, 
-      label: "Merit Scholarships", 
-      value: "100+", 
-      color: "from-purple-500 to-pink-600",
-      bgColor: "bg-purple-50",
-      delay: 300
-    },
-  ];
-
-  const successMetrics = [
-    { value: "95%", label: "Class 12 Average", description: "CBSE Board Results" },
-    { value: "92%", label: "Class 10 Average", description: "CBSE Board Results" },
-    { value: "100%", label: "First Division", description: "Across All Classes" },
-  ];
-
   return (
-    <section 
-      ref={sectionRef}
-      className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 py-20 relative overflow-hidden"
-    >
-      {/* Background Elements */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-amber-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-      <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-      <div className="absolute -bottom-32 left-20 w-96 h-96 bg-emerald-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <section className="py-16 bg-gradient-to-br from-slate-50 via-white to-emerald-50/30">
+      <div className="max-w-7xl mx-auto px-4">
         {/* Header Section */}
-        <div className={`text-center mb-16 transition-all duration-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-medium text-sm mb-6 shadow-lg">
-            <Sparkles className="w-4 h-4" />
-            Legacy of Academic Excellence
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-400 to-orange-500 text-white px-6 py-3 rounded-full text-sm font-bold mb-6 shadow-lg">
+            <Trophy className="w-5 h-5" />
+            Legacy of Excellence
           </div>
-          
-          <h1 className="text-4xl sm:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-            Where Dreams Become
-            <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent block">
-              Achievements
-            </span>
+          <h1 className="text-5xl font-black text-gray-900 mb-6">
+            Deepjyoti <span className="bg-gradient-to-r from-emerald-600 to-teal-700 bg-clip-text text-transparent">Achievers</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Celebrating the remarkable journey of students who transformed their aspirations 
-            into outstanding academic accomplishments through dedication and expert guidance.
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+            Celebrating the brilliant minds who have illuminated their academic journey 
+            with outstanding achievements and consistent excellence across all disciplines.
           </p>
         </div>
 
-        {/* Performance Stats Grid */}
-        <div className={`grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16 transition-all duration-700 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className={`group text-center bg-white rounded-2xl p-6 shadow-lg shadow-gray-200/50 border border-gray-100 hover:shadow-xl hover:scale-105 transition-all duration-500 delay-${stat.delay}`}
-            >
-              <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                <stat.icon className="w-8 h-8 text-white" />
+        {/* Performance Stats */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          {[
+            { icon: Star, label: "School Toppers", value: "60+", color: "from-amber-400 to-orange-500", bg: "bg-amber-500" },
+            { icon: TrendingUp, label: "Above 90%", value: "88%", color: "from-emerald-400 to-green-500", bg: "bg-emerald-500" },
+            { icon: Target, label: "Success Rate", value: "99%", color: "from-blue-400 to-cyan-500", bg: "bg-blue-500" },
+            { icon: Zap, label: "Merit Scholars", value: "120+", color: "from-purple-400 to-pink-500", bg: "bg-purple-500" },
+          ].map((stat, i) => (
+            <div key={i} className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl blur-xl" />
+              <div className="relative bg-white p-6 rounded-2xl shadow-lg border border-gray-100 group-hover:shadow-xl transition-all duration-300 text-center">
+                <div className={`w-14 h-14 mx-auto mb-4 bg-gradient-to-r ${stat.color} rounded-2xl flex items-center justify-center shadow-md`}>
+                  <stat.icon className="w-7 h-7 text-white" />
+                </div>
+                <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
+                <div className="text-sm font-semibold text-gray-600">{stat.label}</div>
               </div>
-              <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
-              <div className="text-sm text-gray-600 font-medium">{stat.label}</div>
             </div>
           ))}
         </div>
 
         {/* Results Grid */}
-        <div className={`grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 transition-all duration-800 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
-          {TOPPERS.map((student, index) => (
-            <div
-              key={index}
-              className={`group bg-white rounded-2xl p-6 shadow-lg shadow-gray-200/50 border border-gray-100 hover:shadow-xl hover:scale-105 transition-all duration-500 delay-${index * 100}`}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {TOPPERS.map((t, idx) => (
+            <Card 
+              key={idx} 
+              className="hover:shadow-2xl transition-all duration-500 border border-gray-200 bg-white/80 backdrop-blur-sm group hover:border-emerald-300 rounded-3xl overflow-hidden"
             >
-              {/* Student Header */}
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
+              {/* Achievement Ribbon */}
+              {t.rank && t.rank <= 3 && (
+                <div className="absolute top-4 right-4 z-10">
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center shadow-lg ${
+                    t.rank === 1 ? 'bg-gradient-to-r from-amber-400 to-orange-500' :
+                    t.rank === 2 ? 'bg-gradient-to-r from-gray-400 to-gray-600' :
+                    'bg-gradient-to-r from-amber-600 to-orange-700'
+                  }`}>
                     <Medal className="w-6 h-6 text-white" />
                   </div>
-                  <div>
-                    <h3 className="font-bold text-gray-900 text-lg group-hover:text-indigo-600 transition-colors duration-300">
-                      {student.name}
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      {student.cls} • {student.stream || "All Subjects"}
-                    </p>
-                  </div>
-                </div>
-                <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white border-0">
-                  {student.year}
-                </Badge>
-              </div>
-
-              {/* Performance Metrics */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">Academic Score</span>
-                  <Badge className="text-base px-3 py-1 bg-gradient-to-r from-emerald-500 to-green-600 text-white border-0 shadow-lg">
-                    {student.score}
-                  </Badge>
-                </div>
-
-                {student.rank && (
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">School Rank</span>
-                    <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white border-0">
-                      Rank #{student.rank}
-                    </Badge>
-                  </div>
-                )}
-
-                {student.subject && (
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">Subject Excellence</span>
-                    <span className="text-sm font-medium text-indigo-600">
-                      Top in {student.subject}
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              {/* Achievement Quote */}
-              {student.achievement && (
-                <div className="mt-4 pt-4 border-t border-gray-100">
-                  <p className="text-sm text-gray-600 italic leading-relaxed">
-                    "{student.achievement}"
-                  </p>
                 </div>
               )}
-            </div>
+              
+              <CardHeader className="pb-4 pt-6">
+                <div className="flex items-start justify-between mb-3">
+                  <Badge className="bg-emerald-100 text-emerald-700 border border-emerald-200 text-sm font-semibold px-3 py-1 rounded-full">
+                    {t.year}
+                  </Badge>
+                  {t.rank && (
+                    <Badge className="bg-gradient-to-r from-amber-500 to-orange-600 text-white border-0 text-sm font-bold px-3 py-1 rounded-full">
+                      Top #{t.rank}
+                    </Badge>
+                  )}
+                </div>
+                <CardTitle className="text-2xl font-bold text-gray-900 group-hover:text-emerald-700 transition-colors leading-tight">
+                  {t.name}
+                </CardTitle>
+                <div className="text-base text-gray-600 font-semibold mt-2">
+                  {t.cls} • {t.stream || "All Subjects"}
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-lg font-bold px-5 py-3 rounded-2xl shadow-lg">
+                    {t.score}
+                  </div>
+                  {t.subject && (
+                    <div className="text-sm text-emerald-700 font-semibold bg-emerald-50 px-3 py-2 rounded-lg border border-emerald-200">
+                      🏆 {t.subject}
+                    </div>
+                  )}
+                </div>
+                {t.achievement && (
+                  <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                    <p className="text-sm text-gray-700 italic leading-relaxed">
+                      "{t.achievement}"
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           ))}
         </div>
 
-        {/* Success Stories Section */}
-        <div className={`bg-gradient-to-br from-gray-900 to-indigo-900 rounded-3xl p-8 text-white overflow-hidden mb-16 transition-all duration-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
-          <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:20px_20px]"></div>
-          <div className="relative">
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-white/90 text-sm font-medium mb-4">
-                <Trophy className="w-4 h-4" />
-                Consistent Excellence
+        {/* Academic Excellence Section */}
+        <div className="bg-gradient-to-br from-white to-emerald-50 rounded-3xl p-10 shadow-2xl border border-emerald-100 mb-16">
+          <div className="text-center mb-10">
+            <h2 className="text-4xl font-black text-gray-900 mb-4">
+              Consistent <span className="text-emerald-600">Brilliance</span>
+            </h2>
+            <p className="text-gray-700 text-lg max-w-3xl mx-auto leading-relaxed">
+              Year after year, Deepjyoti Institute scholars demonstrate exceptional performance 
+              in board examinations, setting new benchmarks of academic excellence.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8 text-center">
+            {[
+              { value: "96%", title: "Class 12 Average", subtitle: "CBSE Board Results", icon: "🎓", color: "text-emerald-600" },
+              { value: "94%", title: "Class 10 Average", subtitle: "CBSE Board Results", icon: "📚", color: "text-blue-600" },
+              { value: "100%", title: "First Division", subtitle: "Across All Classes", icon: "⭐", color: "text-amber-600" },
+            ].map((stat, index) => (
+              <div key={index} className="p-6 bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+                <div className="text-4xl mb-3">{stat.icon}</div>
+                <div className={`text-4xl font-black ${stat.color} mb-2`}>{stat.value}</div>
+                <div className="text-gray-800 font-bold text-lg mb-1">{stat.title}</div>
+                <div className="text-gray-600 text-sm">{stat.subtitle}</div>
               </div>
-              <h2 className="text-3xl font-bold mb-4">
-                Building a Legacy of Success
-              </h2>
-              <p className="text-white/80 max-w-3xl mx-auto leading-relaxed">
-                Year after year, our students demonstrate exceptional performance in board examinations, 
-                setting new benchmarks for academic excellence across all streams.
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-3 gap-6">
-              {successMetrics.map((metric, index) => (
-                <div
-                  key={index}
-                  className={`text-center p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-500 delay-${index * 100}`}
-                >
-                  <div className="text-4xl font-bold text-white mb-2">{metric.value}</div>
-                  <div className="text-white font-medium mb-1">{metric.label}</div>
-                  <div className="text-white/70 text-sm">{metric.description}</div>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
 
         {/* CTA Section */}
-        <div className={`text-center transition-all duration-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
-          <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-3xl p-12 text-white shadow-2xl shadow-indigo-500/25">
-            <div className="max-w-2xl mx-auto">
-              <div className="w-16 h-16 mx-auto mb-6 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                <GraduationCap className="w-8 h-8 text-white" />
-              </div>
-              
-              <h3 className="text-3xl font-bold mb-4">
-                Begin Your Success Journey
-              </h3>
-              <p className="text-indigo-100 text-lg mb-8 leading-relaxed">
-                Join our community of high-achievers and experience the transformative power 
-                of personalized education with expert mentorship and proven methodologies.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  to="/contact#contact"
-                  onClick={onApplyClick}
-                  className="group inline-flex items-center gap-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-gray-900 font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
-                >
-                  <Award className="w-5 h-5" />
-                  Start Your Application
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-                </Link>
-                <Link
-                  to="/courses"
-                  className="group inline-flex items-center gap-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-white/20"
-                >
-                  <BookOpen className="w-5 h-5" />
-                  Explore Programs
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-                </Link>
-              </div>
-              
-              <p className="text-indigo-200 text-sm mt-6">
-                Limited seats available for 2024-25 academic session
-              </p>
+        <div className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-emerald-900 rounded-3xl p-12 text-white shadow-2xl">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `radial-gradient(circle at 2px 2px, white 2px, transparent 0)`,
+              backgroundSize: '30px 30px'
+            }} />
+          </div>
+          
+          <div className="relative text-center">
+            <div className="inline-flex items-center gap-2 bg-emerald-500/30 border border-emerald-400/40 px-4 py-2 rounded-full text-sm font-medium mb-6">
+              <Zap className="w-4 h-4" />
+              Begin Your Success Journey
             </div>
+            <h3 className="text-4xl font-black mb-6">
+              Ready to <span className="text-amber-300">Illuminate</span> Your Academic Path?
+            </h3>
+            <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
+              Join the legacy of Deepjyoti Institute achievers. With personalized mentorship, 
+              expert faculty, and innovative teaching methodologies, your academic excellence is our mission.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link
+                to="/contact#contact"
+                onClick={onApplyClick}
+                className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-400 to-orange-500 text-gray-900 font-bold px-8 py-4 rounded-2xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+              >
+                <Award className="w-5 h-5" />
+                Secure Your Admission
+              </Link>
+              <Link
+                to="/courses"
+                className="inline-flex items-center gap-3 bg-white/20 text-white font-semibold px-8 py-4 rounded-2xl hover:bg-white/30 transition-all duration-300 border border-white/30"
+              >
+                <BookOpen className="w-5 h-5" />
+                Discover Programs
+              </Link>
+            </div>
+            <p className="text-sm text-gray-400 mt-6">
+              📍 Daani Bhawan, 852 Agarbatti Wali Gali, Palam Village
+            </p>
+            <p className="text-amber-300 text-sm font-semibold mt-3">
+              Limited seats available for 2024-25 academic session
+            </p>
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-        .bg-grid-white\/\[0\.02\] {
-          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(255 255 255 / 0.02)'%3e%3cpath d='m0 .5h31.5m-32 0v31m0-31h31'/%3e%3c/svg%3e");
-        }
-      `}</style>
     </section>
   );
 }
